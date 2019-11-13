@@ -593,93 +593,6 @@ radio {
   }
 }
 
-// treeview.view Progressbar improvements
-treeview.view.trough,
-treeview.view.progressbar {
-  background: none;
-  border-bottom: 3px solid transparent;
-  background-color: transparent;
-}
-
-treeview.view.progressbar {
-  background: none;
-  background-color: transparent;
-  border-bottom-color: $selected_bg_color;
-}
-
-treeview.view.progressbar:selected {
-  background: none;
-  background-color: transparent;
-  border-bottom-color: $selected_fg_color;
-}
-
-treeview.view.trough {
-  background: none;
-  background-color: transparent;
-  border-bottom-color: rgba($fg_color, 0.2);
-}
-
-treeview.view.trough:selected {
-  background: none;
-  background-color: transparent;
-  border-bottom-color: rgba($selected_fg_color, 0.2);
-}
-
-treeview.view {
-  background: none;
-  color: $fg_color;
-  background-color: transparent;
-}
-
-treeview.view:selected {
-  background: none;
-  color: $selected_fg_color;
-  background-color: $selected_bg_color;
-}
-
-// treeview.view.trough,
-// treeview.view.progressbar {
-//   background: none;
-//   border-radius: 4px;
-//   border: 3px solid transparent;
-// }
-
-// treeview.view.progressbar {
-//   background: none;
-//   background-color: transparent;
-//   border-bottom-color: @theme_selected_bg_color;
-// }
-
-// treeview.view.progressbar:selected {
-//   background: none;
-//   background-color: transparent;
-//   border-bottom-color: @theme_selected_fg_color;
-// }
-
-// treeview.view.trough {
-//   background: none;
-//   background-color: transparent;
-//   border-bottom-color: rgba(@theme_fg_color, 0.2);
-// }
-
-// treeview.view.trough:selected {
-//   background: none;
-//   background-color: transparent;
-//   border-bottom-color: rgba(@theme_selected_fg_color, 0.2);
-// }
-
-// treeview.view {
-//   background: none;
-//   color: @theme_fg_color;
-//   background-color: transparent;
-// }
-
-// treeview.view:selected {
-//   background: none;
-//   color: @theme_selected_fg_color;
-//   background-color: @theme_selected_bg_color;
-// }
-
 // TODO: REMOVE the diff when we fixed this upstream (upstream has blue suggested border color)
 switch {
   row:selected:not(:disabled) & {
@@ -896,6 +809,165 @@ scale {
       &:disabled {
         background-color: rgba($selected_fg_color, 0.6);
         border-color: rgba($selected_fg_color, 0.6);
+      }
+    }
+  }
+}
+
+
+/**************
+ * Pop Tweaks *
+ **************/
+
+// Try to keep Pop-related tweaks below this fold
+
+//_common:211
+.dim-label {
+  opacity: 0.7;
+}
+
+
+button {
+
+  //_common:652
+  &.osd {
+    border-radius: $window_radius;
+  }
+
+  //_common:727-772
+  // Suggested and Destructive Action buttons
+  @each $b_type, $b_color in (suggested-action, $suggested_bg_color),
+                             (destructive-action, $destructive_color) {
+    &.#{$b_type} {
+      @include button(normal, $b_color, black);
+
+      &.flat {
+        @include button(undecorated);
+
+        color: $b_color; //FIXME: does it work on the dark variant?
+      }
+
+      &:hover { @include button(hover, $b_color, black); }
+
+      &:active,
+      &:checked { @include button(active, $b_color, black); }
+
+      &:backdrop,
+      &.flat:backdrop {
+        @include button(backdrop, $b_color, black);
+
+        &:active,
+        &:checked { @include button(backdrop-active, $b_color, black); }
+
+        &:disabled {
+          @include button(backdrop-insensitive);
+
+          &:active,
+          &:checked { @include button(backdrop-insensitive-active, $b_color, black); }
+        }
+      }
+
+      &.flat {
+        &:backdrop, &:disabled, &:backdrop:disabled {
+          @include button(undecorated);
+
+          color: transparentize($b_color, 0.2);
+        }
+      }
+
+      &:disabled {
+        @include button(insensitive);
+
+        &:active,
+        &:checked { @include button(insensitive-active, $b_color, black); }
+      }
+    }
+  }
+}
+
+//_common:1450
+toolbar.osd {
+  border-radius: $window_radius;
+}
+
+//_common:1482
+.inline-toolbar {
+  border-radius: 0  0 $window_radius $window_radius;
+}
+
+headerbar {
+  //_common:1784-1785
+  window &:first-child { &:backdrop, & { border-top-left-radius: $window_radius; }}
+  window &:last-child { &:backdrop, & { border-top-right-radius: $window_radius; }}
+
+  //_common:1790-1791
+  window stack & { // tackles the stacked headerbars case
+    &:first-child, &:last-child {
+      &:backdrop, & {
+        border-top-left-radius: $window_radius;
+        border-top-right-radius: $window_radius;
+      }
+    }
+  }
+}
+
+//_common:1985-2034
+treeview.view {
+  background: none;
+  color: $fg_color;
+  background-color: $base_color;
+
+  &:selected {
+    &, 
+    &:focus {
+      background: none;
+      color: $selected_fg_color;
+      background-color: $selected_bg_color;
+    }
+  }
+
+  &.trough {
+    color: $fg_color;
+    background: none;
+    background-color: transparent;
+    border-bottom: 3px solid transparent;
+    border-bottom-color: rgba($fg_color, 0.2);
+
+    &:selected {
+      &,
+      &:focus {
+        color: $selected_fg_color;
+        background: none;
+        background-image: image(transparent);
+        background-color: transparent;
+        border-bottom-color: rgba($selected_fg_color, 0.2);
+      }
+    }
+  }
+
+  &.progressbar {
+    &,
+    &:backdrop {
+      color: $fg_color;
+      background: none;
+      background-color: transparent;
+      border-bottom: 3px solid transparent;
+      border-bottom-color: $selected_bg_color;
+    }
+    
+    &:selected {
+      &,
+      &:focus {
+        color: $selected_fg_color;
+        background: none;
+        background-color: transparent;
+        border-bottom-color: $selected_fg_color;
+
+        &:backdrop {
+          color: rgba($selected_fg_color, 0.6);
+          background-color: transparent;
+          border-bottom-color: $selected_fg_color;          
+        }
       }
     }
   }
