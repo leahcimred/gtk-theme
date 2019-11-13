@@ -983,7 +983,7 @@ radio {
     border-color: rgba($fg_color, 0.6);
     box-shadow: none;
   }
-  
+
   &:hover:not(:checked) { 
     @include button(hover-alt, $edge: $shadow_color);
     border-color: rgba($fg_color, 0.6);
@@ -991,7 +991,7 @@ radio {
     background-color: transparent;
     background-image: none;
   }
-  
+
   &:active { 
     @include button(active, $c:$checkradio_bg_color, $tc:$checkradio_fg_color);
     border-color: rgba($fg_color, 0.6);
@@ -999,13 +999,13 @@ radio {
     background-color: transparent;
     background-image: none;
   }
-  
+
   &:checked { 
     @include button(normal-alt, $c:$checkradio_bg_color, $tc:$checkradio_fg_color, $edge: $shadow_color);
     border-color: rgba($fg_color, 0.6);
     box-shadow: none;
   }
-  
+
   &:disabled { 
     @include button(insensitive);
     border-color: rgba($fg_color, 0.2);
@@ -1044,5 +1044,14 @@ treeview.view radio {
     &:focus {
       border-color: $selected_fg_color;
     }
+  }
+}
+
+//_common:3583-3586
+progress {
+  text {
+    padding: 3px;
+    background-color: transparent;
+    color: $fg_color;
   }
 }
