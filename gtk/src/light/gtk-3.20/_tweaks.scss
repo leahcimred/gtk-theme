@@ -972,3 +972,77 @@ treeview.view {
     }
   }
 }
+
+//_common:2936-2940
+check,
+radio {
+  border-color: rgba($fg_color, 0.6);
+    
+  &:hover { 
+    @include button(hover-alt, $c:$checkradio_bg_color, $tc:$checkradio_fg_color, $edge: $shadow_color);
+    border-color: rgba($fg_color, 0.6);
+    box-shadow: none;
+  }
+  
+  &:hover:not(:checked) { 
+    @include button(hover-alt, $edge: $shadow_color);
+    border-color: rgba($fg_color, 0.6);
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+  }
+  
+  &:active { 
+    @include button(active, $c:$checkradio_bg_color, $tc:$checkradio_fg_color);
+    border-color: rgba($fg_color, 0.6);
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+  }
+  
+  &:checked { 
+    @include button(normal-alt, $c:$checkradio_bg_color, $tc:$checkradio_fg_color, $edge: $shadow_color);
+    border-color: rgba($fg_color, 0.6);
+    box-shadow: none;
+  }
+  
+  &:disabled { 
+    @include button(insensitive);
+    border-color: rgba($fg_color, 0.2);
+    box-shadow: none;
+  }
+}
+
+//_common:1979-2999
+%check,
+check {
+  border-radius: 3px;
+
+  &:checked { -gtk-icon-source: image(-gtk-recolor(url("assets/check-symbolic.svg")),
+                                      -gtk-recolor(url("assets/check-symbolic.png"))); }
+
+  &:indeterminate { -gtk-icon-source: image(-gtk-recolor(url("assets/dash-symbolic.svg")),
+                                            -gtk-recolor(url("assets/dash-symbolic.png"))); }
+}
+
+%radio,
+radio {
+  border-radius: 100%;
+
+  &:checked { -gtk-icon-source: image(-gtk-recolor(url("assets/bullet-symbolic.svg")),
+                                      -gtk-recolor(url("assets/bullet-symbolic.png"))); }
+
+  &:indeterminate { -gtk-icon-source: image(-gtk-recolor(url("assets/dash-symbolic.svg")),
+                                            -gtk-recolor(url("assets/dash-symbolic.png"))); }
+}
+
+//_common:3032
+treevew.view check,
+treeview.view radio {
+  &:selected {
+    &,
+    &:focus {
+      border-color: $selected_fg_color;
+    }
+  }
+}

@@ -2933,28 +2933,11 @@ radio {
   -gtk-icon-source: none;
 
   @include button(normal-alt, $edge: $shadow_color);
-  border-color: rgba($fg_color, 0.6);
-  
-  &:hover { 
-    @include button(hover-alt, $c:$checkradio_bg_color, $tc:$checkradio_fg_color, $edge: $shadow_color);
-    border-color: rgba($fg_color, 0.6);
-  }
-  &:hover:not(:checked) { 
-    @include button(hover-alt, $edge: $shadow_color);
-    border-color: rgba($fg_color, 0.6);
-  }
-  &:active { 
-    @include button(active, $c:$checkradio_bg_color, $tc:$checkradio_fg_color);
-    border-color: rgba($fg_color, 0.6);
-  }
-  &:checked { 
-    @include button(normal-alt, $c:$checkradio_bg_color, $tc:$checkradio_fg_color, $edge: $shadow_color);
-    border-color: rgba($fg_color, 0.6);
-  }
-  &:disabled { 
-    @include button(insensitive);
-    border-color: rgba($fg_color, 0.2);
-  }
+  &:hover { @include button(hover-alt, $c:$checkradio_bg_color, $tc:$checkradio_fg_color, $edge: $shadow_color); }
+  &:hover:not(:checked) { @include button(hover-alt, $edge: $shadow_color); }
+  &:active { @include button(active, $c:$checkradio_bg_color, $tc:$checkradio_fg_color); }
+  &:checked { @include button(normal-alt, $c:$checkradio_bg_color, $tc:$checkradio_fg_color, $edge: $shadow_color); }
+  &:disabled { @include button(insensitive); }
   &:backdrop {
     @include button(backdrop);
 
@@ -2989,6 +2972,7 @@ radio {
       box-shadow: none;
       -gtk-icon-shadow: none;
       color: inherit;
+      border-color: currentColor;
     }
   }
 }
@@ -2998,10 +2982,10 @@ check {
   border-radius: 3px;
 
   &:checked { -gtk-icon-source: image(-gtk-recolor(url("assets/check-symbolic.svg")),
-                                      -gtk-recolor(url("assets/check-symbolic.png"))); }
+                                      -gtk-recolor(url("assets/check-symbolic.symbolic.png"))); }
 
   &:indeterminate { -gtk-icon-source: image(-gtk-recolor(url("assets/dash-symbolic.svg")),
-                                            -gtk-recolor(url("assets/dash-symbolic.png"))); }
+                                            -gtk-recolor(url("assets/dash-symbolic.symbolic.png"))); }
 }
 
 %radio,
@@ -3009,10 +2993,10 @@ radio {
   border-radius: 100%;
 
   &:checked { -gtk-icon-source: image(-gtk-recolor(url("assets/bullet-symbolic.svg")),
-                                      -gtk-recolor(url("assets/bullet-symbolic.png"))); }
+                                      -gtk-recolor(url("assets/bullet-symbolic.symbolic.png"))); }
 
   &:indeterminate { -gtk-icon-source: image(-gtk-recolor(url("assets/dash-symbolic.svg")),
-                                            -gtk-recolor(url("assets/dash-symbolic.png"))); }
+                                            -gtk-recolor(url("assets/dash-symbolic.symbolic.png"))); }
 }
 
 // ANIMATION:
@@ -3045,7 +3029,7 @@ treeview.view radio {
     &:focus, & {
       color: $checkradio_fg_color;
 
-      border-color: $selected_fg_color;
+      @if $variant == 'light' { border-color: $selected_borders_color; }
     }
 
     &:disabled {
