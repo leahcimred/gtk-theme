@@ -256,8 +256,17 @@ headerbar,
     }
   }
 
+  entry:disabled {
+    color: rgba($fg_color, 0.8);
+  }
+
+  // Also include backdrop styling, because they turn white in :backdrop
   separator {
-    background: image(darken(#3d3d3d, 11%));
+    background: image(darken($headerbar_bg_color, 5%));
+
+    &:backdrop {
+      background: image(darken($headerbar_bg_color, 3%));
+    }
   }
 
   @if $variant=='light' {
@@ -466,6 +475,22 @@ headerbar,
   }
 }
 
+// separators in paned headerbars, #405
+// We can't seem to use rgba here, so we darken the 
+// headerbar_bg_color instead.
+paned.titlebar > separator {
+  color: darken($headerbar_bg_color, 5%);
+  background: image(darken($headerbar_bg_color, 5%));
+  background-color: darken($headerbar_bg_color, 5%);
+
+  &:backdrop {
+  color: darken($headerbar_bg_color, 3%);
+  background: image(darken($headerbar_bg_color, 3%));
+  background-color: darken($headerbar_bg_color, 3%);
+  }
+}
+
+
 // titlebutton
 button.titlebutton {
 
@@ -563,6 +588,19 @@ radio {
     }
   }
 
+  &,
+  &:hover,
+  &:active {
+    border-color: rgba($fg_color, 0.6);
+  }
+
+  &:disabled {
+    border-color: rgba($fg_color, 0.2);
+  }
+
+  :selected & {
+    border-color: $selected_fg_color;
+  }
 
   &:not(:backdrop):checked:not(.selected) {
     border-color: $checkradio_bg_color;
@@ -571,8 +609,8 @@ radio {
   }
 
   &:not(:backdrop):disabled:checked {
-    background-image: image(mix($checkradio_bg_color, $insensitive_bg_color, 50%));
-    border-color: mix($checkradio_bg_color, $insensitive_bg_color, 50%);
+    background-image: image(rgba($checkradio_bg_color, 0.4));
+    border-color: rgba($checkradio_bg_color, 0.4);
   }
 }
 
